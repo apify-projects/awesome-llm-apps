@@ -1,0 +1,7 @@
+{
+	"actorSpecification": 1,
+	"name": "web-scrapping-ai-agent",
+	"version": "0.0",
+	"buildTag": "latest",
+	"environmentVariables": {}
+}
