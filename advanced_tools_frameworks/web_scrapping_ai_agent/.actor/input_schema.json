@@ -1,0 +1,37 @@
+{
+    "title": "Web Scrapping AI Agent",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "openai_access_token": {
+            "title": "OpenAI Access Token",
+            "type": "string",
+            "description": "Access token for OpenAI API",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "model": {
+            "title": "OpenAI model",
+            "type": "string",
+            "description": "Select the model",
+            "editor": "select",
+            "default": "gpt-4",
+            "enum": ["gpt-4", "gpt-3.5-turbo"]
+        },
+        "url": {
+            "title": "URL",
+            "type": "string",
+            "description": "Enter the URL of the website you want to scrape",
+            "editor": "textfield",
+            "default": "https://docs.apify.com/academy/deploying-your-code"
+        },
+        "user_prompt": {
+            "title": "User Prompt",
+            "type": "string",
+            "description": "What you want the AI agent to scrape from the website?",
+            "editor": "textfield",
+            "default": "What is actorification?"
+        }
+    },
+    "required": ["openai_access_token"]
+}

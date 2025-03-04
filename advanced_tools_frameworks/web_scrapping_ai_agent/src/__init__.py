@@ -1,0 +1,1 @@
+from .ai_scrapper_func import ai_scrapper_func
