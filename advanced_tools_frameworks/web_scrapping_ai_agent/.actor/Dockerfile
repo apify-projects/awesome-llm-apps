@@ -3,6 +3,19 @@
 # You can also use any other image from Docker Hub.
 FROM apify/actor-python-playwright:3.13
 
+# Install necessary build tools (clang, rust, build-essential) and dependencies
+RUN echo "Installing build tools and dependencies..." \
+    && apt-get update && apt-get install -y \
+    build-essential \
+    clang \
+    curl \
+    # Install Rust
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    && export PATH="$HOME/.cargo/bin:$PATH"
+
+# Set up environment for Rust
+ENV PATH="/root/.cargo/bin:$PATH"
+
 # Second, copy just requirements.txt into the Actor image,
 # since it should be the only file that affects the dependency install in the next step,
 # in order to speed up the build
