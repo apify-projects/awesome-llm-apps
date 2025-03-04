@@ -10,6 +10,14 @@ from apify import Actor
 
 from src import ai_scrapper_func
 
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
+async def run_scraper_in_thread(kwargs):
+    loop = asyncio.get_event_loop()
+    with ThreadPoolExecutor() as executor:
+        return await loop.run_in_executor(executor, lambda: ai_scrapper_func(**kwargs))
+
 async def main() -> None:
     """Main entry point for the Apify Actor.
 
@@ -25,9 +33,11 @@ async def main() -> None:
 
         Actor.log.info('Running the ai scrapper...')
 
-        result = await ai_scrapper_func(**actor_input)
+        result = await run_scraper_in_thread(actor_input)
 
-        Actor.log.info(f'Result: {result}')
-        await Actor.set_output(result)
+        Actor.log.info(f'URL: {actor_input.get("url")}')
+        Actor.log.info(f'Prompt: {actor_input.get("user_prompt")}')
+        Actor.log.info(f'Result: {result.get('content')}')
+        await Actor.push_data(result)
 
         Actor.exit(status_message='Actor finished successfully!')
